@@ -1,2 +1,2 @@
-![Tela inicial](./prints/1.png)
-![Tela inicial preenchida](./prints/2.png)
+![Tela inicial](./prints/1.jpg)
+![Tela inicial preenchida](./prints/2.jpg)
