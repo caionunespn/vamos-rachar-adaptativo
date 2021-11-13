@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Vamos Rachar !</string>
+    <string name="activity_title">Vamos\nRachar!</string>
+    <string name="reais">R$</string>
+    <string name="money_input_hint">0</string>
+    <string name="people_input_hint">0</string>
+    <string name="group_icon_description">Ícone representativo de grupo</string>
+    <string name="share_icon_description">Ícone representativo de compartilhamento</string>
+    <string name="sound_icon_description">Ícone representativo de síntese de fala</string>
+    <string name="result">R$ 0,00</string>
+</resources>
