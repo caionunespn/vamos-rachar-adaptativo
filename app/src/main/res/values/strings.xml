@@ -1,11 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Vamos Rachar !</string>
-    <string name="activity_title">Vamos\nRachar!</string>
-    <string name="reais">R$</string>
-    <string name="money_input_hint">0</string>
-    <string name="people_input_hint">0</string>
-    <string name="group_icon_description">Ícone representativo de grupo</string>
-    <string name="share_icon_description">Ícone representativo de compartilhamento</string>
-    <string name="sound_icon_description">Ícone representativo de síntese de fala</string>
-    <string name="result">R$ 0,00</string>
+<string name="app_name" translatable="false">Vamos Rachar !</string>
+<string name="activity_title" translatable="false">Vamos\nRachar!</string>
+<string name="activity_title_no_break_line" translatable="false">Vamos Rachar!</string>
+<string name="reais" translatable="false">R$</string>
+<string name="money_input_hint" translatable="false">0</string>
+<string name="people_input_hint" translatable="false">2</string>
+<string name="group_icon_description">Ícone representativo de grupo</string>
+<string name="share_icon_description">Ícone representativo de compartilhamento</string>
+<string name="sound_icon_description">Ícone representativo de síntese de fala</string>
+<string name="invalid_value">Valor inválido</string>
+<string name="no_person_error">Você precisa ter no mínimo uma pessoa para dividir</string>
+<string name="share_amount_of_people">Qtde de Pessoas</string>
+<string name="share_total_value">Valor Total</string>
+<string name="share_splitted_value">O valor a ser rachado é</string>
+<string name="result" translatable="false">R$ 0,00</string>
 </resources>

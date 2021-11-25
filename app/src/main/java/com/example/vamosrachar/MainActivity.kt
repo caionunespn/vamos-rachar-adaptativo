@@ -10,7 +10,6 @@ import android.widget.TextView
 import android.view.View
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import org.w3c.dom.Text
 import java.util.*
 
 class MainActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
@@ -22,21 +21,31 @@ class MainActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
     private lateinit var result: TextView
     private lateinit var speakFab: View
     private lateinit var shareFab: View
-    private var amount = 0.0;
-    private var people = 0;
+    private lateinit var invalidValueError: String
+    private lateinit var noPersonError: String
+    private lateinit var shareAmountPeople: String
+    private lateinit var shareTotalValue: String
+    private lateinit var shareSplittedValue: String
+    private var amount = 0.0
+    private var people = 0
     private var divisionResult = "R$ 0,00"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        moneyValue = findViewById<EditText>(R.id.money_value)
-        moneyError = findViewById<TextView>(R.id.money_error)
-        peopleValue = findViewById<EditText>(R.id.people_value)
-        peopleError = findViewById<TextView>(R.id.people_error)
-        result = findViewById<TextView>(R.id.result)
-        speakFab = findViewById<View>(R.id.speak_button)
-        shareFab = findViewById<View>(R.id.share_button)
+        moneyValue = findViewById(R.id.money_value)
+        moneyError = findViewById(R.id.money_error)
+        peopleValue = findViewById(R.id.people_value)
+        peopleError = findViewById(R.id.people_error)
+        result = findViewById(R.id.result)
+        speakFab = findViewById(R.id.speak_button)
+        shareFab = findViewById(R.id.share_button)
+        invalidValueError = resources.getString(R.string.invalid_value)
+        noPersonError = resources.getString(R.string.no_person_error)
+        shareAmountPeople = resources.getString(R.string.share_amount_of_people)
+        shareTotalValue = resources.getString(R.string.share_total_value)
+        shareSplittedValue = resources.getString(R.string.share_splitted_value)
 
         moneyValue.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -51,7 +60,7 @@ class MainActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
                     moneyError.setText("")
                     amount = moneyAmount
                 } catch (nfe: NumberFormatException) {
-                    return moneyError.setText("Valor inválido")
+                    return moneyError.setText(invalidValueError)
                 }
                 calculateDivision()
             }
@@ -70,33 +79,35 @@ class MainActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
                     peopleError.setText("")
                     people = peopleAmount
                 } catch (nfe: NumberFormatException) {
-                    return peopleError.setText("Valor inválido")
+                    return peopleError.setText(invalidValueError)
                 }
                 calculateDivision()
             }
         })
 
-        speakFab!!.isEnabled = false;
+        speakFab.isEnabled = false
         tts = TextToSpeech(this,this)
 
-        speakFab!!.setOnClickListener { onSpeak() }
-        shareFab!!.setOnClickListener { onShare() }
+        speakFab.setOnClickListener { onSpeak() }
+        shareFab.setOnClickListener { onShare() }
     }
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            val port = Locale("pt", "BR")
-            var result = tts!!.setLanguage(port);
+            val lang = Locale.getDefault().language
+            val country = Locale.getDefault().country
+            val loc = Locale(lang, country)
+            var result = tts!!.setLanguage(loc)
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 result = tts!!.setLanguage(Locale.US)
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Log.e("TTS", "A lingua específicada não é suportada")
                 } else {
-                    speakFab!!.isEnabled = true
+                    speakFab.isEnabled = true
                 }
             } else {
-                speakFab!!.isEnabled = true
+                speakFab.isEnabled = true
             }
         } else {
             Log.e("TTS", "Falha na inicialização do Text do Speech")
@@ -113,11 +124,11 @@ class MainActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
 
     private fun calculateDivision() {
         if (people == 0) {
-            peopleError.setText("Você precisa ter no mínimo uma pessoa para dividir")
+            peopleError.setText(noPersonError)
         } else {
             peopleError.setText("")
-            val division = String.format("%.2f", amount / people);
-            val resultString = "R$ ${division}"
+            val division = String.format("%.2f", amount / people)
+            val resultString = "R$ $division"
             divisionResult = resultString
             result.setText(resultString)
         }
@@ -130,7 +141,7 @@ class MainActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
     private fun onShare() {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "Vamos Rachar !\n\nQtde de Pessoas: ${people}\nValor Total: R$ ${amount}\n\nO valor a ser rachado é: ${divisionResult}")
+            putExtra(Intent.EXTRA_TEXT, "Vamos Rachar !\n\n${shareAmountPeople}: ${people}\n${shareTotalValue}: R$ ${amount}\n\n${shareSplittedValue} é: $divisionResult")
             type = "text/plain"
         }
 

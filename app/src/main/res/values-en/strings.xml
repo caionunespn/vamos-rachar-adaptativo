@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_icon_description">Icon representing a group</string>
+    <string name="share_icon_description">Icon representing share</string>
+    <string name="sound_icon_description">Icon representing text-to-speech</string>
+    <string name="invalid_value">Invalid value</string>
+    <string name="no_person_error">You must have at least one person to split</string>
+    <string name="share_amount_of_people">Number of persons</string>
+    <string name="share_total_value">Total amount</string>
+    <string name="share_splitted_value">The amount to be split is</string>
+</resources>
